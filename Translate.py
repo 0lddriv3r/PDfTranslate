@@ -8,7 +8,7 @@ def translate(text, from_language='en', to_language='zh-CN'):
     url = base_url.format(to_language, from_language, text)
     # print('\n***********\n' + text + '\n***********\n')
     try:
-        response = requests.get(url, timeout=0.1)
+        response = requests.get(url, timeout=1)
         response.raise_for_status()
         html_text = response.text
         #.*? non-greedy or minimal fashion
@@ -22,11 +22,11 @@ def translate(text, from_language='en', to_language='zh-CN'):
             translate_text = soup.find('div', class_='t0').string
             print('Translate Successful!')
             return translate_text
-        except:
-            print('Dom Tree Parse Failed!')
+        except Exception as dom_e:
+            print('Exception:\n' + str(dom_e) + '\n')
             return 'Dom Tree Parse Failed!'
-    except:
-        print('Get HTML Text Failed!')
+    except Exception as request_e:
+        print('Exception:\n' + str(request_e) + '\n')
         return 'Get HTML Text Failed!'
 
 
