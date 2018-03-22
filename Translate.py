@@ -8,7 +8,7 @@ def translate(text, from_language='en', to_language='zh-CN'):
     url = base_url.format(to_language, from_language, text)
     # print('\n***********\n' + text + '\n***********\n')
     try:
-        response = requests.get(url, timeout=1)
+        response = requests.get(url, timeout=5)
         response.raise_for_status()
         html_text = response.text
         #.*? non-greedy or minimal fashion
